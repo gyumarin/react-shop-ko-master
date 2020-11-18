@@ -44,7 +44,8 @@ function RegisterPage(props) {
         lastName: '',
         name: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        role: false
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string()
@@ -69,7 +70,8 @@ function RegisterPage(props) {
             password: values.password,
             name: values.name,
             lastname: values.lastname,
-            image: `http://gravatar.com/avatar/${moment().unix()}?d=identicon`
+            image: `http://gravatar.com/avatar/${moment().unix()}?d=identicon`,
+            role: values.role
           };
 
           dispatch(registerUser(dataToSubmit)).then(response => {
@@ -184,6 +186,17 @@ function RegisterPage(props) {
                 {errors.confirmPassword && touched.confirmPassword && (
                   <div className="input-feedback">{errors.confirmPassword}</div>
                 )}
+              </Form.Item>
+
+              <Form.Item required label="Are you company?">
+                <Input
+                  id="role"                  
+                  type="checkbox"
+                  value={values.role}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  
+                />
               </Form.Item>
 
               <Form.Item {...tailFormItemLayout}>

@@ -12,10 +12,6 @@ function FileUpload(props) {
     
     
 
-    
-    // useEffect(() => {
-    //     setImages(props.coImage)
-    // }, [Images])
 
     const dropHandler = (files) =>{
 

@@ -20,11 +20,12 @@ function RadioBox(props) {
         setValue(event.target.value)
         props.handleFilters(event.target.value) 
     }
+    
 
     return (
         <div>
             <Collapse defaultActiveKey={['0']} >
-                <Panel header="Price" key="1">
+                <Panel header="Deadline" key="1">
 
                     <Radio.Group onChange={handleChange} value={Value}>
                         {renderRadioBox()}

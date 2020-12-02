@@ -28,6 +28,7 @@ const Positions =[
 
 function UploadProductPage(props) {
 
+
     const [Title, setTitle] = useState("")
     const [Description, setDescription] = useState("")
     const [Price, setPrice] = useState(0)
@@ -42,10 +43,6 @@ function UploadProductPage(props) {
 
     const descriptionChangeHandler = (event) =>{
         setDescription(event.currentTarget.value)
-    }
-
-    const priceChangeHandler = (event) =>{
-        setPrice(event.currentTarget.value)
     }
 
     const positionsChangeHandler = (event) =>{
@@ -65,20 +62,23 @@ function UploadProductPage(props) {
         setDeadline(event.currentTarget.value)    
     }
 
-    console.log("Deadline", Deadline)
-
+    
+    console.log(props.user.userData)
+    
     const submitHandler = (event) =>{
+
         //submit 버튼을 눌렀을때 페이지가 refresh가 안되도록 해주는 함수
         event.preventDefault();
 
         //유효성 체크 - 모든칸이 체워지지 않으면 submit을 할수 없게 한다.
-        if(!Title || !Description || !Deadline || !Images || !Keywords || !Position){
+        if(!Title || !Description || !Deadline || !Keywords || !Position){
             return alert("모든 값을 넣어주셔야 합니다.")
 
             
         }
 
         //서버에 채운 값들을 request로 보낸다.
+        
         
         const body = {
             //로그인 된 사람의 ID
@@ -97,6 +97,7 @@ function UploadProductPage(props) {
             .then(response=>{
                 if(response.data.success){
                     alert('상품 업로드에 성공 했습니다.')
+                    
                     props.history.push('/')
                 }else{
                     alert('상품 업로드에 실패 했습니다.')

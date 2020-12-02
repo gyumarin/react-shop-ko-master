@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { Collapse, Checkbox } from 'antd';
 
-const {Panel} = Collapse
+const { Panel } = Collapse
 function CheckBox(props) {
 
     const [Checked, setChecked] = useState([])
 
-    const handleToggle =(value) =>{
+    const handleToggle = (value) => {
 
         //누른 것의 Index를 구하고
 
@@ -14,29 +14,33 @@ function CheckBox(props) {
 
         //전체 Checked된 State에서 현재 누른 CheckBox가 이미 있다면
 
-        const newChecked =[...Checked]
+        const newChecked = [...Checked]
 
         //State 넣어준다.
-        if(currentIndex === -1){
+        if (currentIndex === -1) {
             newChecked.push(value)
-        //해주고
+            //해주고
 
-        }else{
+        } else {
             newChecked.splice(currentIndex, 1)
         }
-        setChecked(newChecked)  
-        props.handleFilters(newChecked)    
+        setChecked(newChecked)
+        props.handleFilters(newChecked)
     }
 
     const renderCheckBoxList = () => props.list && props.list.map((value, index) => (
         <React.Fragment key={index} >
-                <Checkbox onChange={() => handleToggle(value._id)} checked={false}
-                checked={Checked.indexOf(value._id)=== -1 ? false : true }/>
-                    <span>{value.name} </span>
-    
+            <span style={{ marginRight: '5px' }}>
+                <span style={{ marginRight: '5px' }}>
+                    <Checkbox onChange={() => handleToggle(value._id)} checked={false}
+                        checked={Checked.indexOf(value._id) === -1 ? false : true} />
+                </span>
+                <span>{value.name} </span>
+            </span>
+
         </React.Fragment>
 
-        
+
 
     ))
     return (
@@ -45,10 +49,10 @@ function CheckBox(props) {
                 <Panel header="Positions" key="1">
 
                     {renderCheckBoxList()}
-                    
-                   
+
+
                 </Panel>
-                
+
             </Collapse>
         </div>
     )

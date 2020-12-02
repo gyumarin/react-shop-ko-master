@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+
 const productSchema = mongoose.Schema({
 
     writer:{
@@ -40,19 +41,20 @@ const productSchema = mongoose.Schema({
         default: []
     },
     deadline: {
-        type: String,
+        type: Date,
         maxlength: 10
     },
 }, {timestamps: true})
-
 //검색 기능에서 검색 우선순위 설정
 productSchema.index({
     title: 'text',
-    description: 'text'
+    description: 'text',
+    writer: 'text'
 },{
     weights:{
         title:5,
-        description: 1
+        description: 3,
+        writer: 5
     }
 })
 

@@ -38,14 +38,18 @@ function RightMenu(props) {
   } else {
     if(user.userData && user.userData.role === 1){
       return (
-        <Menu mode={props.mode}>          
-            <SubMenu title={<span>{ user.userData && user.userData.name } 님</span>}>
-              <Menu.Item key="upload">
+        <Menu mode={props.mode}>  
+            <Menu.Item key="upload">
                 <a href="/product/upload"> 과제 생성 </a>
-              </Menu.Item>
-              <Menu.Item key="setting:1">
+            </Menu.Item>        
+            <SubMenu title={<span>{ user.userData && user.userData.name } 님</span>}>
+              
+              <Menu.Item key="Profile">
                 <a href="/company/profile"> 업체 프로필 </a>  
-              </Menu.Item> 
+              </Menu.Item>
+              <Menu.Item key="cart" style={{paddingBottom : 3 }}>                
+                  <a href="/user/cart" className="head-example" style={{marginRight: 10, color: '#667777'}}> 과제 관리 </a>
+              </Menu.Item>
               <Menu.Item key="logout">
                 <a onClick={logoutHandler}>logout</a>
               </Menu.Item>
@@ -58,14 +62,12 @@ function RightMenu(props) {
 
     }else{
       return (
-        <Menu mode={props.mode}>          
+        <Menu mode={props.mode}>         
             <SubMenu title={<span>{ user.userData && user.userData.name } 님</span>}>
-              <Menu.Item key="setting:1">프로필</Menu.Item>
-              <Menu.Item key="setting:2">회사 pick</Menu.Item>
-
+              
               <Menu.Item key="cart" style={{paddingBottom : 3 }}> 
                 <Badge count={user.userData && user.userData.cart.length}>
-                  <a href="/user/cart" className="head-example" style={{marginRight: 10, color: '#667777'}}> 과제 pick </a>
+                  <a href="/user/cart" className="head-example" style={{marginRight: 14, color: '#667777'}}> 내 과제 목록 </a>
                 </Badge>
               </Menu.Item>
 

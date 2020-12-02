@@ -1,46 +1,59 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Axios from 'axios';
 import "./UserCardBlock.css"
+import { Col, Row, Button, Form, Input, Select } from 'antd';
+import SubmitTask from './SubmitTask';
+
 function UserCardBlock(props) {
 
     const renderCartImage = (images) => {
-        if(images.length > 0) {
-            let image =images[0]
+        if (images.length > 0) {
+            let image = images[0]
             return `http://localhost:5000/${image}`
         }
     }
 
+    //console.log('props', props)
     const renderItems = () => (
-        props.products && props.products.map((product,index) =>(
+
+        props.products && props.products.map((product, index) => (
             <tr key={index}>
-                <td>
-                     <img style={{ width: '70px'}} alt="product"
-                     src={renderCartImage(product.images)} />
+                <td style={{ width: '25%', textAlign: 'center' }}>
+                    {<a href={`/product/${product._id}`}>
+                        <img style={{ width: '100%' }} alt="product"
+                            src={renderCartImage(product.images)} />
+                    </a>}
+
+
                 </td>
-                <td>
-                    {product.quantity} EA
+                <td style={{ width: '25%', fontSize: '17px' }}>
+                    과제명:<br /> <b style={{ width: '25%', fontSize: '20px' }}>{product.title}</b>
+                    <br />
+                    <br />
+                    마감 기한: {product.deadline.substring(0, 10)}
                 </td>
-                <td>
-                    $ {product.price}
+                <td style={{ width: '50%' }}>
+                    <SubmitTask products={product} userId={props.userId} />
                 </td>
-                <td>
-                    <button onClick={() => props.removeItem(product._id)}>
+                <td style={{ width: '10%' }}>
+                    <Button onClick={() => props.removeItem(product._id)}>
                         Remove
-                    </button>
+                    </Button>
                 </td>
             </tr>
         ))
     )
-    
-    
+
+
     return (
         <div>
             <table>
                 <thead>
                     <tr>
-                        <th>Product Image</th>
-                        <th>Product Quantity</th>
-                        <th>Product Price</th>
-                        <th>Remove from Cart</th>
+                        <th></th>
+                        <th>과제 정보</th>
+                        <th>과제 제출</th>
+                        <th>과제 삭제</th>
                     </tr>
                 </thead>
 

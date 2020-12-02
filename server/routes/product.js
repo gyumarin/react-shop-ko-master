@@ -43,6 +43,21 @@ router.post('/', (req, res) => {
 
 })
 
+router.post('/companyPorducts', (req, res) => {
+
+
+  Product.find()
+    .populate("writer")
+    .exec((err, productInfo) => {
+      if (err) return res.status(400).json({ success: false, err })       
+      return res.status(200).json({ 
+          success: true, productInfo,
+          postSize: productInfo.length 
+      })
+    })
+
+})
+
 router.post('/products', (req, res) => {
 
   //product collection에 들어있는 모든 상품들을 가져오기
@@ -58,15 +73,16 @@ router.post('/products', (req, res) => {
   for (let key in req.body.filters) {
     if (req.body.filters[key].length > 0) {
 
-      console.log('key', key)
+      
 
-      if(key === "price"){
+      if(key === "deadline"){
         findArgs[key] = {
           //gte: Greater than equal [0] ~ [1]
           $gte: req.body.filters[key][0],
           //lte: Less than equal 
           $lte: req.body.filters[key][1]
         }
+        console.log('test =>>', req.body.filters[key][0])
       }else{
         findArgs[key] = req.body.filters[key];
       }
@@ -107,6 +123,7 @@ router.post('/products', (req, res) => {
   }
 })
 
+
 router.get('/products_by_id', (req, res) => {
   
   //post를 이용해 프론트에서 값을 가져올때는 req.body.~이런식으로 가져오지만
@@ -133,19 +150,28 @@ router.get('/products_by_id', (req, res) => {
 
 })
 
+router.get('/delete_by_id', (req, res) => {
+  
+  //post를 이용해 프론트에서 값을 가져올때는 req.body.~이런식으로 가져오지만
+  //query를 이용해서 가져올때는 req.query로 가져온다.
+  
+  let productId = req.query.id
+
+  console.log('productId',productId)
+  //productId를 이용해서 DB에서 productId와 같은 상품의 정보를 가져온다.
+
+  Product.deleteOne({_id: productId})
+      .exec((err, product) =>{
+          if(err) return res.status(400).send(err)
+          return res.status(200).send({success: true})
+      })
+  
+
+})
 
 
 
 //axios.get(`/api/product/products_by_id?id=${productId}&type=single`)
-
-
-
-
-
-
-
-
-
 
 
 

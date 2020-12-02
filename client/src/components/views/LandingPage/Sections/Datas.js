@@ -1,36 +1,62 @@
+
+const offset = new Date().getTimezoneOffset() * 60000;
+const today = new Date(Date.now() - offset);
+var date = today;
+var nextDate = today;
+
+var firstDateArr = new Array(date.toISOString());
+date.setDate(nextDate.getDate()+6)
+var secondDateArr = new Array(date.toISOString());
+
+
+for(var i=1; i<5; i++){
+    date.setDate(date.getDate()+7)
+    firstDateArr.push(date.toISOString())
+}
+
+for(var i=1; i<4; i++){
+    nextDate.setDate(nextDate.getDate()+7)
+    secondDateArr.push(nextDate.toISOString())
+}
+nextDate.setDate(nextDate.getDate()+1500)
+secondDateArr.push(nextDate.toISOString())
+
+
+
+//console.log('date.toISOString(), date.setDate(date.getDate() + 1) =>', date.toISOString(), nextDate.toISOString())
+
 const positions = [
     {
         "_id" :1,
-        "name": "Publishing"
+        "name": "웹페이지 퍼블리싱"
     },
     {
         "_id" :2,
-        "name": "Frontend"
+        "name": "웹 프론트 개발"
     },
     {
         "_id" :3,
-        "name": "Backend"
+        "name": "웹 백엔드 개발"
     },
     {
         "_id" :4,
-        "name": "Fullstack"
+        "name": "웹 풀스택 개발"
     },
     {
         "_id" :5,
-        "name": "Database"
+        "name": "데이터 베이스 관리"
     },
     {
         "_id" :6,
-        "name": "BigData"
+        "name": "빅데이터 개발"
     },
     {
         "_id" :7,
-        "name": "Data analysis and visualization"
+        "name": "데이터 분석 및 시각화"
     }
 
 ]
-
-const price =[
+const deadline =[
     {
         "_id" : 0,
         "name" : "Any",
@@ -38,32 +64,34 @@ const price =[
     },
     {
         "_id" : 1,
-        "name" : "$0 to $199",
-        "array" : [0, 199]
+        "name" : "D-Day to 1 Week",        
+        "array" : [firstDateArr[0], secondDateArr[0]]
     },
     {
         "_id" : 2,
-        "name" : "$200 to $249",
-        "array" : [200, 249]
+        "name" : "7-Day to 2 Week",
+        "array" : [firstDateArr[1], secondDateArr[1]]
     },
     {
         "_id" : 3,
-        "name" : "$250 to $279",
-        "array" : [250, 279]
+        "name" : "14-Day to 3 Week",
+        "array" : [firstDateArr[2], secondDateArr[2]]
     },
     {
         "_id" : 4,
-        "name" : "$280 to $299",
-        "array" : [280, 299]
+        "name" : "21-Day to 4 Week",
+        "array" : [firstDateArr[3], secondDateArr[3]]
     },
     {
         "_id" : 5,
-        "name" : "More than $ 300",
-        "array" : [300, 1500000]
-    }
+        "name" : "more than 4Week",
+        "array" : [firstDateArr[4], secondDateArr[4]]
+    },
+
 ]
+
 
 export{
     positions,
-    price
+    deadline
 }
